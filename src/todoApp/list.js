@@ -10,7 +10,7 @@ function List() {
   const [list, setList] = useState([
     {
       id: uuidv4(),
-      firstname: "Robin",
+      firstname: "Tyler",
       task: "mow grass",
       isComplete: false
     },
