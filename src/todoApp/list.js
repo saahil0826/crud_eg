@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Item from "./component/Item.js";
 import Item1 from "./component/Item1.js";
 import Item2 from "./component/Item2.js";
@@ -6,27 +6,34 @@ import Item2 from "./component/Item2.js";
 import TodoForm from "./component/TodoForm.js";
 const { v4: uuidv4 } = require("uuid");
 
+const initialState = [{
+  id: uuidv4(),
+  firstname: "Tyler",
+  task: "mow grass",
+  isComplete: false
+},
+{
+  id: uuidv4(),
+  firstname: "Dave",
+  task: "bring milk",
+  isComplete: true
+},
+{
+  id: uuidv4(),
+  firstname: "Saahil",
+  task: "rob a bank",
+  isComplete: false
+}]
+
 function List() {
-  const [list, setList] = useState([
-    {
-      id: uuidv4(),
-      firstname: "Tyler",
-      task: "mow grass",
-      isComplete: false
-    },
-    {
-      id: uuidv4(),
-      firstname: "Dave",
-      task: "bring milk",
-      isComplete: true
-    },
-    {
-      id: uuidv4(),
-      firstname: "Saahil",
-      task: "rob a bank",
-      isComplete: false
-    }
-  ]);
+  const saveditems = JSON.parse(window.localStorage.getItem("items"));
+  const [list, setList] = useState(saveditems|| initialState);
+
+
+  useEffect(() => {
+    window.localStorage.setItem("items", JSON.stringify(list));
+  }, [list]);
+
 
   const createTodo = newItem => {
     setList(abc => [...list, newItem]);
@@ -67,6 +74,9 @@ function List() {
   setList(updatedTodo);
   };
 
+  const reset =() => {
+    setList(initialState);
+  };
 
 
 
@@ -90,6 +100,8 @@ function List() {
       </p>
       <div>
         <TodoForm createTodo={createTodo} />
+        <button onClick={reset}>Reset</button>
+
       </div>
     </div>
   );

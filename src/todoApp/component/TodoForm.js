@@ -3,8 +3,8 @@ const { v4: uuidv4 } = require("uuid");
 
 
 function TodoForm({ createTodo }) {
-  const [fname, setFname] = useState();
-  const [task, setTask] = useState();
+  const [fname, setFname] = useState('');
+  const [task, setTask] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
